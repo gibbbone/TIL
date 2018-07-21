@@ -52,10 +52,11 @@ Finally launch the environment:
 # Activate environment and launch server
 source activate env_2.7
 conda update --all 
-jupyter notebook --no-browser --port=8889
+nohup jupyter notebook --no-browser --port=8889 &
 ```
 
 The options used when launching the notebook are specific to use when accessing notebook with the Windows Linux Subsystem (similar but not identical procedure is used to access notebooks on remote server). 
 
+- `nohup` will allow us to use the command line after launching the notebook
 - `--no-browser` will avoid the launch of a specific browser
 - `--port=8889` is telling use to check http://localhost:8889 on our browser (in the Windows system) to get to the notebook.
