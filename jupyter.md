@@ -60,3 +60,32 @@ The options used when launching the notebook are specific to use when accessing 
 - `nohup` will allow us to use the command line after launching the notebook
 - `--no-browser` will avoid the launch of a specific browser
 - `--port=8889` is telling use to check http://localhost:8889 on our browser (in the Windows system) to get to the notebook.
+
+## Notebook magics
+### Execute bash commads
+```
+!echo "Hello world!"
+```
+
+### Store variables
+On notebook A:
+```
+var_1 = [1,2,3,4] #list
+%store var_1
+```
+On notebook B:
+```
+%store -r var_1 
+```
+
+### Write cell as a file 
+
+```python
+%%writefile script.py
+print("Hello world!")
+```
+### Execute notebook inside a notebook
+
+```
+!jupyter nbconvert --execute --to notebook --inplace target_notebook
+```
