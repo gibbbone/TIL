@@ -2,12 +2,6 @@
 
 Disclaimer: I tend to prefer command line workaround.
 
-Index:
-
--  [Create a repo from command line ](https://github.com/giovannibonaccorsi/TIL/blob/master/git.md#create-a-repo-from-command-line)
-- []() 
-
-
 ## Create a repo from command line 
 ### Create
 First you need to create a repo on Github. This is not possible via git command and hence we need a method.
@@ -58,9 +52,14 @@ git push -u origin master
 ```bash
 git log | grep -o "\([a-z0-9]\{40\}\)"
 ```
-
+## Shortened git log
+```bash
+git log --oneline
+```
 ## Ungit
 The alias I use to stop git from monitoring a folder
 ```bash
 alias ungit='rm -rf .git/'
 ```
+
+
