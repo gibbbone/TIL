@@ -1,6 +1,7 @@
 # Linux Command Line
 
-## Download images 
+## Images
+#### Download  
 Reference: [SO question](https://stackoverflow.com/questions/32330737/ubuntu-using-curl-to-download-an-image)
 
 ```bash
@@ -9,6 +10,12 @@ curl https://www.python.org/static/apple-touch-icon-144x144-precomposed.png > im
 # or this
 wget https://www.python.org/static/apple-touch-icon-144x144-precomposed.png
 ```
+#### Convert pdf to eps
+```bash
+convert default_multirank_ns.png eps2:default_multirank_ns.eps
+convert corr_gdp_multi.pdf eps2:corr_gdp_multi.eps
+```
+
 ## History 
 
 #### Pipe history to file
@@ -25,7 +32,6 @@ history | cut -c 8- >> file.txt
 ```bash
 history | grep command
 ```
-####
 
 ## Jupyter
 #### List running notebook
@@ -37,3 +43,17 @@ If there are and you don't remember their PID (you don't), you can find them her
 ```
 ps aux
 ```
+
+## Latex 
+#### Convert doc to tex via pandoc
+```
+pandoc file_name.docx -f docx -t latex -s -o file_name.tex
+```
+
+
+## File management
+
+#### Download a full folder from TFP server
+```
+ wget -m -np -nH --cut-dirs=1 --content-on-error -erobots=off https://url.of.the.folder/
+ ```
