@@ -61,5 +61,20 @@ The alias I use to stop git from monitoring a folder
 ```bash
 alias ungit='rm -rf .git/'
 ```
+## Setup Git from Github-Desktop with Visual Studio Code
+Visual studio code cannot find git.exe if you have it inside Github-Desktop, you need to provide it as a path variable.
+First go to to the Github-Desktop folder, usually it is in a path similar to:
 
+```cmd 
+ C:\Users\<User>\AppData\Local\GitHubDesktop
+```
+Then search for git.exe with the search utility. Check the path of the exe and copy it. Mine was:
+```cmd
+C:\Users\<User>\AppData\Local\GitHubDesktop\app-1.4.2\resources\app\git\mingw64\bin
+```
+Then add it to environmental variables:
+start> type "Environment variables"> select the suggestion> select the Environment Variables box> Double click on the the Path variable>new> paste the git.exe path. 
 
+Done. Restart visual studio code and you're good to go.
+
+(Based on [this](http://tom-randomworks.blogspot.com/2016/01/visual-studio-code-and-github-for.html) blog post. )
