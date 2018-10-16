@@ -66,5 +66,5 @@ Source: [SO answer](https://unix.stackexchange.com/a/26950/261707)
 # show last two folders
 export PROMPT_DIRTRIM=2
 # reset
-export PROMPT_DIRTRIM=8
+export PROMPT_DIRTRIM=0
 ```
