@@ -69,6 +69,13 @@ pandoc file_name.docx -f docx -t latex -s -o file_name.tex
 ``` bash
 wget -m -np -nH --cut-dirs=1 --content-on-error -erobots=off https://url.of.the.folder/
 ```
+#### Copy content of a folder inside a remote folder
+From [this SO answer](https://unix.stackexchange.com/a/232995/261707):
+``` bash
+scp ~/local_dir/* user@host.com:/var/www/html/target_dir
+``` 
+> The -r option means "recursively", so you must write it when you're trying to transfer an entire directory or several directories. 
+
 
 ## Config
 
