@@ -80,6 +80,8 @@ Done. Restart visual studio code and you're good to go.
 (Based on [this](http://tom-randomworks.blogspot.com/2016/01/visual-studio-code-and-github-for.html) blog post. )
 
 ## Store username and password for a limited time
+Git has different mode to store credentials. The default is to NOT store anything. Here we're switching to temporary storage for 60 minutes:
 ```bash
  git config --global credential.helper cache
+ git config --global credential.helper 'cache --timeout 3600'
 ```
