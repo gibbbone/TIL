@@ -78,3 +78,8 @@ start> type "Environment variables"> select the suggestion> select the Environme
 Done. Restart visual studio code and you're good to go.
 
 (Based on [this](http://tom-randomworks.blogspot.com/2016/01/visual-studio-code-and-github-for.html) blog post. )
+
+## Store username and password for a limited time
+```bash
+ git config --global credential.helper cache
+```
