@@ -85,3 +85,24 @@ Git has different mode to store credentials. The default is to NOT store anythin
  git config --global credential.helper cache
  git config --global credential.helper 'cache --timeout 3600'
 ```
+
+## Remove file(s) added to .gitignore from version control
+Reference [SO question](https://stackoverflow.com/questions/1274057/how-to-make-git-forget-about-a-file-that-was-tracked-but-is-now-in-gitignore#comment1103258_1274447) (I've highlighted the comment we are following here).
+
+Procedure:
+```bash
+# Commit unstaged changes
+git add unstaged1 unstaged2 
+git commit -m 'Adds unstaged files.' 
+# Remove files from index (in this case they're ALL the .pyc files)
+git rm --cached -r *.pyc
+# Commit again
+git commit -m 'Removes files.'
+# Update .gitignore to ignore the above files in the future
+# (In this case I've added the line: *.pyc)
+nano .gitignore
+# Check if everything is fine
+git status
+# Finally commits the .gitignore file
+git commit -m 'Updates gitignore'
+```
