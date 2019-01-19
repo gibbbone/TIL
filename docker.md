@@ -59,3 +59,73 @@ You will notice though that paths are in the wrong format. To deal you can eithe
 ```bash
 export DOCKER_CERT_PATH=$(wpc $DOCKER_CERT_PATH)
 ```
+
+Since these environment variables will be forgotten once we restart bash let's save them for good:
+```bash
+echo "eval $(docker-machine.exe env --shell sh)" >> ~/.bashrc && source ~/.bashrc
+echo "export DOCKER_CERT_PATH=$(wpc $DOCKER_CERT_PATH)" >> ~/.bashrc && source ~/.bashrc
+```
+
+### Install Docker in WSL
+To do this I followed almost step-by-step [this guide](https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly) from  the"Install Docker and Docker Compose within WSL" to the "Ensure Volume Mounts Work" section:
+
+#### Installation
+```bash
+# Update the apt package list.
+sudo apt-get update -y
+
+# Install Docker's package dependencies.
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+# Download and add Docker's official public PGP key.
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Verify the fingerprint.
+sudo apt-key fingerprint 0EBFCD88
+
+# Add the `stable` channel's Docker upstream repository.
+#
+# If you want to live on the edge, you can change "stable" below to "test" or
+# "nightly". I highly recommend sticking with stable!
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+Here I got stuck until I did the following (after checking [this](https://github.com/Microsoft/WSL/issues/640) discussion on Github):
+```
+sudo chmod 777 /var/cache/app-info/xapian/default -R
+```
+The fix worked for me but be aware that in the discussion someone says that is not a safe operation (it was too late for me). After that I proceeded as in the guide:
+```bash
+# Update the apt package list (for the new apt repo).
+sudo apt-get update -y
+
+# Install the latest version of Docker CE.
+sudo apt-get install -y docker-ce
+
+# Allow your user to access the Docker CLI without needing root access.
+sudo usermod -aG docker $USER
+```
+Restart bash after this and install Python and pip if you don't have them already (unlike me). Then:
+```bash
+# Install Docker Compose into your user's home directory.
+pip install --user docker-compose
+```
+#### Configuration
+Here's another step where I didn't followed the guide: all my env variables where settled with `docker-machine.exe env` and hence I didn't want to fiddle with them.
+
+#### Verification
+This should check that you can access Docker via bash in the WSL:
+```bash
+# You should get a bunch of output about your Docker daemon.
+# If you get a permission denied error, close + open your terminal and try again.
+docker info
+
+# You should get back your Docker Compose version.
+docker-compose --version
+```
