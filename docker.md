@@ -129,3 +129,19 @@ docker info
 # You should get back your Docker Compose version.
 docker-compose --version
 ```
+
+## Run nbviewer locally
+[Nbviewer](https://github.com/jupyter/nbviewer) renders notebooks in your browser but works only with public available Jupyter notebooks. Hence if you want to visualize private notebooks you can't use it. While I discovered lately that there [are](https://gist.github.com/herdingbats/56a8800716a2f4382fe7) [better](https://kokes.github.io/nbviewer.js/viewer.html) [options](https://github.com/tuxu/ipynb-quicklook), the first part of the nbviewer readme.md suggested Docker as an option. 
+
+I soon discovered that both running Docker and the nbviewer image was not easy and the fact that I could not figure how to make Docker work irritated me. So I kept pushing until I discovered it.
+
+Download and build image:
+```bash
+docker run -p 8080:8080 jupyter/nbviewer   
+```
+Then going to localhost:8080 in your browser (or http://192.168.99.100:8080 in my case) you should see the nbviewer homepage.
+
+```bash
+docker run -p 8080:8080 -v /c/Users/<User>/Documents/python_scripts/path/to/my/beatiful/notebooks:/notebooks jupyter/nbviewer python -m nbviewer --localfiles=/notebooks --port=8080                               
+```
+To access your local notebooks you have to use the `-v` option in Docker, this mounts a local folder (the path before the `:`) inside the container with a given name (the part after). After that we execute nbviewer inside the container with (`python -m nbviewer`) and we provide the command line argument `localfiles` (**remember to put a trailing backslash here!**) and a forward port. The result is that now at the address http://192.168.99.100:8080/localfile/ I can see a list of notebooks from my local folder and I can preview it with Nbviewer. Victory.
