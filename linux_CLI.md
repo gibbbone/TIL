@@ -76,6 +76,16 @@ scp ~/local_dir/* user@host.com:/var/www/html/target_dir
 ``` 
 > The -r option means "recursively", so you must write it when you're trying to transfer an entire directory or several directories. 
 
+#### Add file extension to files recursively 
+So: you renamed a whole set of files forgetting the file extension at the end? Move to the target folder and do the following:
+``` bash
+find . -type f ! -name "*.*" | xargs -l file -F \ | awk '{ print $1, $1"."tolower($2)}' | xargs -l mv 
+``` 
+In order:
+- `find . -type f ! -name "*.*" ` : recursively list all files (only) in all folders. Exclude files which have already an extension (`"*.*"`) 
+- `xargs -l file -F \ `: list file details to get the right file format. `xargs` is necessary since `file` does not accept multiple arguments from the pipe. Separate them with a space (`-F \ `). 
+- `awk '{ print $1, $1"."tolower($2)}'`: receive the information from `file`, collect the relevant bits (filename and extension) and rearrange them in the desired format. `tolower` is necessary since the file extensions are returned in all caps. The output of this step should be a tuple `filename filename.ext`    
+- `xargs -l mv`: pipe everything to mv (which again does not accept lists so we use `xargs`) and use it with its renaming function
 
 ## Config
 
