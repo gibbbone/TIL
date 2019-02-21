@@ -25,7 +25,7 @@ Finally keep in mind that if the module previously used some common import from 
 
 ```python
 for mod in sys.modules.keys(): 
-    if mod.startswith('boilerplate.export.'): 
+    if mod.startswith('mymodule.'): #or 'mymodule.mysbmodule.'
         del(sys.modules[mod])
 # then reimport here
 ```
