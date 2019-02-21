@@ -87,6 +87,18 @@ In order:
 - `awk '{ print $1, $1"."tolower($2)}'`: receive the information from `file`, collect the relevant bits (filename and extension) and rearrange them in the desired format. `tolower` is necessary since the file extensions are returned in all caps. The output of this step should be a tuple `filename filename.ext`    
 - `xargs -l mv`: pipe everything to mv (which again does not accept lists so we use `xargs`) and use it with its renaming function
 
+#### Rename files with pattern in name
+So you just saved a whole bunch of figures and since you're a good boy you named them with dash separated words. But you notice that the order of words is wrong! How to rename all of them?
+``` bash
+ls | awk '{ split($1, NAME, "."); split(NAME[1], WORDS,"_"); print $1, WORDS[1]"_"WORDS[3]"_"WORDS[2]"."NAME[2]}' | xargs -l mv 
+``` 
+- `ls |`: pipe files to `awk`
+- With `awk` 
+   - `$1`: take the whole input 
+   - `split($1, NAME, ".")`: split it in the extension and in the filename 
+   - `split(NAME[1], WORDS,"_")` then split the filename by dash
+   - print the old and the reordered filename
+- Finally pipe everything to `mv` via `xargs'
 ## Config
 
 #### Reduce length of prompt string
