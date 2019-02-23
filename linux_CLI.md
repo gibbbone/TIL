@@ -61,6 +61,18 @@ ps aux
 ```bash
 pandoc file_name.docx -f docx -t latex -s -o file_name.tex
 ```
+#### Register Latex program for execution in Bash
+If you installed Latex and other similar programs in the Windows part and you don't want to reinstall them in the Linux Subsystem you can link them in the bin folder
+```bash
+latex_path=$(which latex.exe)
+sudo ln -s "$latex_path" ~/bin/latex
+pdflatex_path=$(which pdflatex.exe)
+sudo ln -s "$pdflatex_path" ~/bin/pdflatex
+bibtex_path=$(which bibtex.exe)
+sudo ln -s "$bibtex_path" ~/bin/bibtex
+```
+#### Compile a tex file in pdf with bibliography
+
 
 
 ## File management
