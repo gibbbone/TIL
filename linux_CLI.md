@@ -72,7 +72,23 @@ bibtex_path=$(which bibtex.exe)
 sudo ln -s "$bibtex_path" ~/bin/bibtex
 ```
 #### Compile a tex file in pdf with bibliography
-
+The following script combines two functionalities: compiling a tex file from command line and getting the bibliographic references right. For the second step you should pass first the .tex file to pdflatex then the .bib file to bibtex and finally the .tex file twice into pdflatex (awkward, right?). You can pass both the two filenames to the script or only one and it will assume that both file share the same name.
+```bash
+#! /bin/bash                                                                                                                             
+LATEX="$1"
+if [ $# -eq 1]; then
+  BIB="${1%.*}"
+elif [ $# -eq 2]; then
+  BIB="$2$"
+else
+  echo "Error: incorrect number of parameters."
+  exit 1
+fi
+pdflatex $LATEX
+bibtex $BIB
+pdflatex $LATEX
+pdflatex $LATEX
+``` 
 
 
 ## File management
